@@ -1,14 +1,39 @@
 import sqlite3
+import logging
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
+db_connection_count = 0
+
 def get_db_connection():
+    global db_connection_count
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
+
+    db_connection_count += 1
+
     return connection
+
+# Define the Flask application
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your secret key'
+
+formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
+
+file_handler = logging.FileHandler('app.log')
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+
+app.logger.setLevel(logging.DEBUG)
+app.logger.addHandler(file_handler)
+
+# Also capture Werkzeug logs (for request info)
+werkzeug_logger = logging.getLogger('werkzeug')
+werkzeug_logger.setLevel(logging.INFO)
+werkzeug_logger.addHandler(file_handler)
 
 # Function to get a post using its ID
 def get_post(post_id):
@@ -17,10 +42,6 @@ def get_post(post_id):
                         (post_id,)).fetchone()
     connection.close()
     return post
-
-# Define the Flask application
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your secret key'
 
 # Define the main route of the web application 
 @app.route('/')
@@ -64,6 +85,31 @@ def create():
             return redirect(url_for('index'))
 
     return render_template('create.html')
+
+@app.route('/healthz')
+def status():
+    response = app.response_class(
+            response=json.dumps({"result":"OK - healthy"}),
+            status=200,
+            mimetype='application/json'
+    )
+    app.logger.info('Status request successfull')
+    app.logger.debug('DEBUG message')
+    return response
+
+@app.route('/metrics')
+def metrics():
+    connection = get_db_connection()
+    post_count = connection.execute("SELECT COUNT(*) FROM posts").fetchone()[0]
+    connection.close()
+
+    response = app.response_class(
+            response=json.dumps({"db_connection_count":db_connection_count,"post_count":post_count}),
+            status=200,
+            mimetype='application/json'
+    )
+    app.logger.info('Metrics request successfull')
+    return response
 
 # start the application on port 3111
 if __name__ == "__main__":

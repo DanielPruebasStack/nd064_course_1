@@ -1,0 +1,24 @@
+2026-03-12 13:12:59,790 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.4:5000
+2026-03-12 13:12:59,790 INFO: [33mPress CTRL+C to quit[0m
+2026-03-12 13:12:59,791 INFO:  * Restarting with stat
+2026-03-12 13:12:59,920 WARNING:  * Debugger is active!
+2026-03-12 13:12:59,922 INFO:  * Debugger PIN: 174-114-445
+2026-03-12 13:13:04,337 INFO: Status request successfull
+2026-03-12 13:13:04,337 DEBUG: DEBUG message
+2026-03-12 13:13:04,337 INFO: 127.0.0.1 - - [12/Mar/2026 13:13:04] "GET /healthz HTTP/1.1" 200 -
+2026-03-12 13:13:04,910 INFO: Status request successfull
+2026-03-12 13:13:04,910 DEBUG: DEBUG message
+2026-03-12 13:13:04,910 INFO: 127.0.0.1 - - [12/Mar/2026 13:13:04] "GET /healthz HTTP/1.1" 200 -
+2026-03-12 13:13:13,948 INFO: Metrics request successfull
+2026-03-12 13:13:13,949 INFO: 127.0.0.1 - - [12/Mar/2026 13:13:13] "GET /metrics HTTP/1.1" 200 -
+2026-03-12 13:13:45,995 INFO:  * Detected change in '/home/udacity/nd064_course_1/project/techtrends/app.py', reloading
+2026-03-12 13:13:46,022 INFO:  * Restarting with stat
+2026-03-12 13:13:46,153 WARNING:  * Debugger is active!
+2026-03-12 13:13:46,155 INFO:  * Debugger PIN: 174-114-445
+2026-03-12 13:13:48,162 INFO:  * Detected change in '/home/udacity/nd064_course_1/project/techtrends/app.py', reloading
+2026-03-12 13:13:48,188 INFO:  * Restarting with stat
+2026-03-12 13:13:48,318 WARNING:  * Debugger is active!
+2026-03-12 13:13:48,320 INFO:  * Debugger PIN: 174-114-445
