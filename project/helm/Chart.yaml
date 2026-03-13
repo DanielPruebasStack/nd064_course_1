@@ -1,0 +1,10 @@
+apiVersion: v1
+name: techtrends
+version: 1.0.0
+description: TechTrends Helm chart
+
+keywords:
+  - techtrends
+
+maintainers:
+  - name: Daniel Piekarski
